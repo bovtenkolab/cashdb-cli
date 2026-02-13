@@ -8,18 +8,14 @@ internal static class Menu
     {
         while (true)
         {
-            Console.Clear();
-            Console.WriteLine("==== Main Menu ====");
-            Console.WriteLine("1. View All Transactions");
-            Console.WriteLine("0. Exit");
-            Console.WriteLine();
-            Console.Write("Select option: ");
-
+            PrintHeader();
+            
             var input = Console.ReadLine();
 
             switch (input)
             {
                 case "1":
+                    Console.Clear();
                     TransactionPrinter.Print(transactions);
                     Pause();
                     break;
@@ -28,11 +24,23 @@ internal static class Menu
                     return;
 
                 default:
+                    Console.Clear();
                     Console.WriteLine("Invalid selection.");
                     Pause();
                     break;
             }
         }
+    }
+
+    private static void PrintHeader()
+    {
+        Console.Clear();
+        Console.WriteLine("==== Main Menu ====");
+        Console.WriteLine("1. View All Transactions");
+        Console.WriteLine("0. Exit");
+        Console.WriteLine();
+        Console.Write("Select option: ");
+        Console.WriteLine();
     }
 
     private static void Pause()

@@ -6,31 +6,44 @@ internal static class MockTransactionFactory
 {
     public static List<Transaction> Create()
     {
-        return new List<Transaction>
+        var rawData = new List<string[]>
         {
-            Transaction.Create(
-                new Money(1200m),
-                TransactionType.Credit,
-                new DateOnly(2026, 2, 1),
-                "Salary"),
-
-            Transaction.Create(
-                new Money(85.40m),
-                TransactionType.Debit,
-                new DateOnly(2026, 2, 3),
-                "Groceries"),
-
-            Transaction.Create(
-                new Money(60m),
-                TransactionType.Debit,
-                new DateOnly(2026, 2, 5),
-                "Internet Bill"),
-
-            Transaction.Create(
-                new Money(200m),
-                TransactionType.Credit,
-                new DateOnly(2026, 2, 7),
-                "Freelance Work")
+            new[] { "2026-02-01", "Credit", "1200.00", "Salary" },
+            new[] { "2026-02-03", "Debit",  "85.40",   "Groceries" },
+            new[] { "2026-02-05", "Debit",  "60.00",   "Internet Bill" },
+            new[] { "2026-02-07", "X", "0",  "Freelance Work" }
         };
+
+        var transactions = new List<Transaction>();
+
+        foreach (var row in rawData)
+        {
+            try {
+                var date = DateOnly.Parse(row[0]);
+
+                var type = Enum.Parse<TransactionType>(
+                    row[1],
+                    ignoreCase: true);
+
+                var amountValue = decimal.Parse(row[2]);
+                var money = new Money(amountValue);
+
+                var description = row[3];
+
+                var transaction = Transaction.Create(
+                    money,
+                    type,
+                    date,
+                    description);
+
+                transactions.Add(transaction);
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
+
+        return transactions;
     }
 }
