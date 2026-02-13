@@ -1,6 +1,6 @@
-using ExpenseTracker.Domain;
+using CashDB.Domain;
 
-namespace ExpenseTracker.Cli;
+namespace CashDB.Cli;
 
 internal static class MockTransactionFactory
 {
