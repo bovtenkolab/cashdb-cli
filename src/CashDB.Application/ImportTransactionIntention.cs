@@ -19,33 +19,49 @@ public class ImportTransactionIntention
         return _importer.Import(filePath);
     }
 
-    private void SetCandidateFiles()
+    public void SetCandidateFiles()
     {
         var path = Directory.GetCurrentDirectory() + "/test";
         candidateFiles = Directory.GetFiles(path, "*.csv").ToList();
     }
+    
+    public void HandleImport()
+    {       
+        Console.Clear();
+        Console.WriteLine("Select CSV file to import:");
+        Console.WriteLine();
 
-    // public static void HandleImport(ImportTransactionIntention useCase)
-    // {       
+        SetCandidateFiles();
 
-    //     Console.WriteLine();
-    //     Console.Write("Enter file number: ");
+        if (candidateFiles.Count == 0)
+        {
+            Console.WriteLine("No files found.");
+            return;
+        }
 
-    //     if (!int.TryParse(Console.ReadLine(), out int selection) ||
-    //         selection < 1 || selection > files.Length)
-    //     {
-    //         Console.WriteLine("Invalid selection.");
-    //         return;
-    //     }
+        for (int i = 0; i < candidateFiles.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {Path.GetFileName(candidateFiles[i])}");
+        }
 
-    //     var selectedFile = files[selection - 1];
+        Console.WriteLine();
+        Console.Write("Enter file number: ");
 
-    //     var imported = useCase.Execute(selectedFile);
+        if (!int.TryParse(Console.ReadLine(), out int selection) ||
+            selection < 1 || selection > candidateFiles.Count)
+        {
+            Console.WriteLine("Invalid selection.");
+            return;
+        }
 
-    //     var transactions = new List<Transaction>();
-    //     transactions.AddRange(imported);
+        var selectedFile = candidateFiles[selection - 1];
 
-    //     Console.WriteLine();
-    //     Console.WriteLine($"Imported {imported.Count} transactions.");
-    // }
+        var imported = Execute(selectedFile);
+
+        var transactions = new List<Transaction>();
+        transactions.AddRange(imported);
+
+        Console.WriteLine();
+        Console.WriteLine($"Imported {imported.Count} transactions.");
+    }
 }

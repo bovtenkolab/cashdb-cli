@@ -25,10 +25,10 @@ internal static class Menu
 
                 case "2":
                     var importer = new CsvTransactionImporter();
-                    var importAction = new ImportTransactionIntention(importer);
+                    var intent = new ImportTransactionIntention(importer);
 
                     Console.Clear();
-                    HandleImport(importAction);
+                    intent.HandleImport();
                     Pause();
                     break;
 
@@ -61,45 +61,5 @@ internal static class Menu
         Console.WriteLine();
         Console.WriteLine("Press any key to return to menu...");
         Console.ReadKey(true);
-    }
-
-    private static void HandleImport(ImportTransactionIntention useCase)
-    {
-        Console.Clear();
-        Console.WriteLine("Select CSV file to import:");
-        Console.WriteLine();
-
-        var files = Directory.GetFiles(Directory.GetCurrentDirectory() + "/test", "*.csv");
-
-        if (files.Length == 0)
-        {
-            Console.WriteLine("No CSV files found.");
-            return;
-        }
-
-        for (int i = 0; i < files.Length; i++)
-        {
-            Console.WriteLine($"{i + 1}. {Path.GetFileName(files[i])}");
-        }
-
-        Console.WriteLine();
-        Console.Write("Enter file number: ");
-
-        if (!int.TryParse(Console.ReadLine(), out int selection) ||
-            selection < 1 || selection > files.Length)
-        {
-            Console.WriteLine("Invalid selection.");
-            return;
-        }
-
-        var selectedFile = files[selection - 1];
-
-        var imported = useCase.Execute(selectedFile);
-
-        var transactions = new List<Transaction>();
-        transactions.AddRange(imported);
-
-        Console.WriteLine();
-        Console.WriteLine($"Imported {imported.Count} transactions.");
     }
 }
