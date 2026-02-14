@@ -7,10 +7,12 @@ namespace CashDB.Cli;
 
 internal static class Menu
 {
-    public static void ShowMenu(List<Transaction> transactions)
+    public static void ShowMenu()
     {
         while (true)
         {
+            var space = new UserSpace();
+
             PrintHeader();
 
             var input = Console.ReadLine();
@@ -19,7 +21,7 @@ internal static class Menu
             {
                 case "1":
                     Console.Clear();
-                    TransactionPrinter.Print(transactions);
+                    TransactionPrinter.Print(space.Transactions);
                     Pause();
                     break;
 

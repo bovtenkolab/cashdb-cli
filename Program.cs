@@ -10,7 +10,5 @@ Console.WriteLine();
 Console.WriteLine("Press any key to continue...");
 Console.ReadKey(true);
 
-var transactions = MockTransactionFactory.Create();
-
-Menu.ShowMenu(transactions);
+Menu.ShowMenu();
 
