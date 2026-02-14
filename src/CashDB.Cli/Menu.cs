@@ -63,13 +63,13 @@ internal static class Menu
         Console.ReadKey(true);
     }
 
-        private static void HandleImport(ImportTransactionIntention useCase)
+    private static void HandleImport(ImportTransactionIntention useCase)
     {
         Console.Clear();
         Console.WriteLine("Select CSV file to import:");
         Console.WriteLine();
 
-        var files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.csv");
+        var files = Directory.GetFiles(Directory.GetCurrentDirectory() + "/test", "*.csv");
 
         if (files.Length == 0)
         {
