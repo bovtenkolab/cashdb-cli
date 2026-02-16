@@ -7,13 +7,11 @@ namespace CashDB.Cli;
 
 internal static class Menu
 {
-    public static void ShowMenu()
+    public static void ShowMenu(UserSpace space)
     {
         while (true)
         {
-            var space = new UserSpace();
-
-            PrintHeader();
+            PrintHeader(space.InboxDirectory);
 
             var input = Console.ReadLine();
 
@@ -27,19 +25,40 @@ internal static class Menu
 
                 case "2":
                     var importer = new CsvTransactionImporter();
-                    var intent = new ImportTransactionIntention(importer);
+                    var import = new ImportTransactionIntention(importer);
 
                     Console.Clear();
-                    intent.HandleImport();
+                    import.HandleImport(space.InboxDirectory);
                     Pause();
+                    break;
+
+                case "3":
+                    Console.Clear();
+                    Console.WriteLine("Type absolute directory of inbox and press enter...");
+                    Console.WriteLine();                    
+
+                    input = Console.ReadLine();
+                    var result = space.SetInbox(input);
+                    
+                    if (result)
+                    {
+                        Console.Clear();
+                        PrintInbox(space.InboxDirectory);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Something went wrong.");
+                    }
+
+                    Pause();
+                    
                     break;
 
                 case "0":
                     return;
 
-                default:
-                    Console.Clear();
-                    Console.WriteLine("Invalid selection.");
+                default:                    
+
                     Pause();
                     break;
             }
@@ -55,7 +74,8 @@ internal static class Menu
         Console.WriteLine("3. Set Inbox Directory");
         Console.WriteLine("0. Exit");
         Console.WriteLine();
-        Console.WriteLine($"Inbox: {directory}");
+
+        PrintInbox(directory);
         Console.WriteLine();
         Console.Write("Select option: ");
         Console.WriteLine();
@@ -66,5 +86,10 @@ internal static class Menu
         Console.WriteLine();
         Console.WriteLine("Press any key to return to menu...");
         Console.ReadKey(true);
+    }
+
+    private static void PrintInbox(string directory)
+    {        
+        Console.WriteLine($"Inbox: {directory}");        
     }
 }

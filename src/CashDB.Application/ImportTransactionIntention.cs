@@ -5,13 +5,13 @@ namespace CashDB.Application;
 public class ImportTransactionIntention
 {
     private readonly ITransactionImporter _importer;
-    private List<string> candidateFiles;
+    private List<string> CandidateFiles {get; set;}
 
 
     public ImportTransactionIntention(ITransactionImporter importer)
     {
         _importer = importer;
-        candidateFiles = new List<string>();
+        CandidateFiles = new List<string>();
     }
 
     public List<Transaction> Execute(string filePath)
@@ -19,42 +19,41 @@ public class ImportTransactionIntention
         return _importer.Import(filePath);
     }
 
-    public void SetCandidateFiles()
+    public void SetCandidateFiles(string inbox)
     {
-        var path = Directory.GetCurrentDirectory() + "/test";
-        candidateFiles = Directory.GetFiles(path, "*.csv").ToList();
+        CandidateFiles = Directory.GetFiles(inbox, "*.csv").ToList();
     }
     
-    public void HandleImport()
+    public void HandleImport(string inbox = "")
     {       
         Console.Clear();
         Console.WriteLine("Select CSV file to import:");
         Console.WriteLine();
 
-        SetCandidateFiles();
+        SetCandidateFiles(inbox);
 
-        if (candidateFiles.Count == 0)
+        if (CandidateFiles.Count == 0)
         {
             Console.WriteLine("No files found.");
             return;
         }
 
-        for (int i = 0; i < candidateFiles.Count; i++)
+        for (int i = 0; i < CandidateFiles.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. {Path.GetFileName(candidateFiles[i])}");
+            Console.WriteLine($"{i + 1}. {Path.GetFileName(CandidateFiles[i])}");
         }
 
         Console.WriteLine();
         Console.Write("Enter file number: ");
 
         if (!int.TryParse(Console.ReadLine(), out int selection) ||
-            selection < 1 || selection > candidateFiles.Count)
+            selection < 1 || selection > CandidateFiles.Count)
         {
             Console.WriteLine("Invalid selection.");
             return;
         }
 
-        var selectedFile = candidateFiles[selection - 1];
+        var selectedFile = CandidateFiles[selection - 1];
 
         var imported = Execute(selectedFile);
 
