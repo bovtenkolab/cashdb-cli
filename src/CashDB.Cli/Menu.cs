@@ -44,13 +44,16 @@ internal static class Menu
         }
     }
 
-    private static void PrintHeader()
+    private static void PrintHeader(string directory = "")
     {
         Console.Clear();
         Console.WriteLine("==== Main Menu ====");
         Console.WriteLine("1. View All Transactions");
         Console.WriteLine("2. Import Transactions (CSV)");
+        Console.WriteLine("3. Set Inbox Directory");
         Console.WriteLine("0. Exit");
+        Console.WriteLine();
+        Console.WriteLine($"Inbox: {directory}");
         Console.WriteLine();
         Console.Write("Select option: ");
         Console.WriteLine();
