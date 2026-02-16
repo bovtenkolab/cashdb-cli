@@ -1,10 +1,10 @@
 using CashDB.Domain;
 
-namespace CashDB.Cli;
+namespace CashDB.Infrastructure;
 
-internal static class MockTransactionFactory
+public class MockTransactionFactory
 {
-    public static List<Transaction> Create()
+    public List<Transaction> Create()
     {
         var rawData = new List<string[]>
         {
