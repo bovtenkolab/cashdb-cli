@@ -8,6 +8,7 @@ public class FileSystemInboxScanner : IInboxFileScanner
             throw new DirectoryNotFoundException();
 
         var searchPattern = $"*.{extension.TrimStart('.')}";
+        
         return Directory.GetFiles(directory, searchPattern)
                         .Select(Path.GetFileName)
                         .ToList();

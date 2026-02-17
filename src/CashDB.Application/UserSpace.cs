@@ -15,7 +15,7 @@ public class UserSpace
         var mockFactory = new MockTransactionFactory();
 
         Transactions = mockFactory.Create();
-        InboxDirectory = Directory.GetCurrentDirectory();
+        InboxDirectory = Directory.GetCurrentDirectory() + "/test";
         SearchExtension = "csv";
     }
 
@@ -23,7 +23,7 @@ public class UserSpace
     {
         try 
         {
-            if (Directory.Exists(directory))
+            if (Directory.Exists(directory))            
             {
                 InboxDirectory = directory;    
                 return true;                           

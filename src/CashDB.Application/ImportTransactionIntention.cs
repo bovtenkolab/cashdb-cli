@@ -24,13 +24,13 @@ public class ImportTransactionIntention
         CandidateFiles = Directory.GetFiles(inbox, "*.csv").ToList();
     }
     
-    public void HandleImport(string inbox = "")
+    public void HandleImport(UserSpace space)
     {       
         Console.Clear();
         Console.WriteLine("Select CSV file to import:");
         Console.WriteLine();
 
-        SetCandidateFiles(inbox);
+        SetCandidateFiles(space.InboxDirectory);
 
         if (CandidateFiles.Count == 0)
         {
@@ -57,8 +57,7 @@ public class ImportTransactionIntention
 
         var imported = Execute(selectedFile);
 
-        var transactions = new List<Transaction>();
-        transactions.AddRange(imported);
+        space.Transactions.AddRange(imported);
 
         Console.WriteLine();
         Console.WriteLine($"Imported {imported.Count} transactions.");

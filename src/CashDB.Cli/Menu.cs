@@ -27,8 +27,8 @@ internal static class Menu
                     var importer = new CsvTransactionImporter();
                     var import = new ImportTransactionIntention(importer);
 
-                    Console.Clear();
-                    import.HandleImport(space.InboxDirectory);
+                    Console.Clear();                    
+                    import.HandleImport(space);
                     Pause();
                     break;
 
