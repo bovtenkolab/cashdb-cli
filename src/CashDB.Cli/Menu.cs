@@ -54,6 +54,28 @@ internal static class Menu
                     
                     break;
 
+                case "4":
+                    var saver = new JsonFileSaver();
+                    var save = new SaveFileIntention<Transaction>(saver);
+
+                    Console.Clear();  
+
+                    try
+                    {
+                        save.Records = space.Transactions;
+                        save.TargetPath = Directory.GetCurrentDirectory() + "/test/store.json";
+
+                        if (!save.Save())
+                            throw new Exception();
+                    }      
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Something went wrong.");
+                    }
+
+                    Pause();
+                    break;
+
                 case "0":
                     return;
 
@@ -72,6 +94,7 @@ internal static class Menu
         Console.WriteLine("1. View All Transactions");
         Console.WriteLine("2. Import Transactions (CSV)");
         Console.WriteLine("3. Set Inbox Directory");
+        Console.WriteLine("4. Save Transactions");
         Console.WriteLine("0. Exit");
         Console.WriteLine();
 

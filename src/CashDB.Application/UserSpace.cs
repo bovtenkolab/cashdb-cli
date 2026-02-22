@@ -36,4 +36,11 @@ public class UserSpace
             return false;
         }
     }
+
+    public List<Transaction> LoadTransactions()
+    {
+        var result = new List<Transaction> ();
+
+        return result;
+    }
 }
