@@ -80,6 +80,28 @@ internal static class Menu
 
                     break;
 
+                case "5":
+                    Console.Clear();  
+
+                    var model = new ChatModel();                    
+
+                    try
+                    {
+                        model.Run();
+
+                        Console.Clear();  
+                        Console.WriteLine("Chat is over.");
+                    }      
+                    catch (Exception e)
+                    {
+                        Console.Clear();  
+                        Console.WriteLine("Something went wrong.");
+                    }
+
+                    Pause();
+
+                    break;
+
                 case "0":
                     return;
 
@@ -99,6 +121,7 @@ internal static class Menu
         Console.WriteLine("2. Import Transactions (CSV)");
         Console.WriteLine("3. Set Inbox Directory");
         Console.WriteLine("4. Save Transactions");
+        Console.WriteLine("5. Chat Support");
         Console.WriteLine("0. Exit");
         Console.WriteLine();
 
