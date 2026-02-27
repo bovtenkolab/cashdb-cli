@@ -2,12 +2,13 @@ using System.Runtime.CompilerServices;
 using CashDB.Domain;
 using CashDB.Application;
 using CashDB.Infrastructure;
+using System.Threading.Tasks;
 
 namespace CashDB.Cli;
 
 internal static class Menu
 {
-    public static void ShowMenu(UserSpace space)
+    public static async Task ShowMenu(UserSpace space)
     {
         while (true)
         {
@@ -87,7 +88,8 @@ internal static class Menu
 
                     try
                     {
-                        model.Run();
+
+                        Task.WaitAll(model.Run());
 
                         Console.Clear();  
                         Console.WriteLine("Chat is over.");

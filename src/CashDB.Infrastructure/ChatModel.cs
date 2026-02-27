@@ -3,13 +3,14 @@ using LLama;
 using Microsoft.Extensions.VectorData;
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
+using System.IO.Pipelines;
 
 namespace CashDB.Infrastructure;
 
 public class ChatModel
 {
     public ModelParams Parameters { get; set; }
-    string modelPath = @"<Your Model Path>"; // change it to your own model path.
+    string modelPath = @""; 
 
     public ChatModel()
     {
@@ -20,7 +21,7 @@ public class ChatModel
         };
     }
 
-    public async void Run()
+    public async Task<bool> Run()
     {
         using var model = LLamaWeights.LoadFromFile(this.Parameters);
         using var context = model.CreateContext(this.Parameters);
@@ -28,15 +29,13 @@ public class ChatModel
 
         // Add chat histories as prompt to tell AI how to act.
         var chatHistory = new ChatHistory();
-        chatHistory.AddMessage(AuthorRole.System, "Transcript of a dialog, where the User interacts with an Assistant named Bob. Bob is helpful, kind, honest, good at writing, and never fails to answer the User's requests immediately and with precision.");
-        chatHistory.AddMessage(AuthorRole.User, "Hello, Bob.");
-        chatHistory.AddMessage(AuthorRole.Assistant, "Hello. How may I help you today?");
+        chatHistory.AddMessage(AuthorRole.System, "Hello.");
 
         ChatSession session = new(executor, chatHistory);
 
         InferenceParams inferenceParams = new InferenceParams()
         {
-            MaxTokens = 256, // No more than 256 tokens should appear in answer. Remove it if antiprompt is enough for control.
+            MaxTokens = 128, // No more than 256 tokens should appear in answer. Remove it if antiprompt is enough for control.
             AntiPrompts = new List<string> { "User:" } // Stop generation once antiprompts appear.
         };
 
@@ -59,5 +58,7 @@ public class ChatModel
             Console.ForegroundColor = ConsoleColor.Green;
             userInput = Console.ReadLine() ?? "";
         }
+
+        return false;
     }
 }
