@@ -1,0 +1,29 @@
+[
+  {
+    "Id": "0e91a9fa-f710-4311-bdc5-80e539a983be",
+    "Amount": {
+      "Value": 1200.00
+    },
+    "Type": 1,
+    "Date": "2026-02-01",
+    "Description": "Salary"
+  },
+  {
+    "Id": "2d1d7ca8-a296-4621-a262-4732df7a9f15",
+    "Amount": {
+      "Value": 85.40
+    },
+    "Type": 2,
+    "Date": "2026-02-03",
+    "Description": "Groceries"
+  },
+  {
+    "Id": "f500f5a3-bd5b-43a1-8251-e6d780b8e928",
+    "Amount": {
+      "Value": 60.00
+    },
+    "Type": 2,
+    "Date": "2026-02-05",
+    "Description": "Internet Bill"
+  }
+]

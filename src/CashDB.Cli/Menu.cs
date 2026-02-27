@@ -55,7 +55,7 @@ internal static class Menu
                     break;
 
                 case "4":
-                    var saver = new JsonFileSaver();
+                    var saver = new JsonFiles();
                     var save = new SaveFileIntention<Transaction>(saver);
 
                     Console.Clear();  

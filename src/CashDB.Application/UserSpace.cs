@@ -7,8 +7,16 @@ public class UserSpace
 {
     public string InboxDirectory { get; set; }
     public string SearchExtension { get; set; }
-
     public List<Transaction> Transactions { get; set; }
+    public string StoreFileName { get; set; }
+    public string StoreFilePath { 
+        get
+        {
+            return _storeFilePath;
+        } 
+    }
+
+    private readonly string _storeFilePath;
 
     public UserSpace()
     {
@@ -17,6 +25,11 @@ public class UserSpace
         Transactions = mockFactory.Create();
         InboxDirectory = Directory.GetCurrentDirectory() + "/test";
         SearchExtension = "csv";
+        StoreFileName = "store.json";
+
+        _storeFilePath = InboxDirectory + "/" + StoreFileName;
+
+        LoadTransactions();
     }
 
     public bool SetInbox(string directory)
@@ -37,10 +50,20 @@ public class UserSpace
         }
     }
 
-    public List<Transaction> LoadTransactions()
+    public bool LoadTransactions()
     {
         var result = new List<Transaction> ();
 
-        return result;
+        var file = new JsonFiles();
+        try
+        {
+            Transactions = file.Read(_storeFilePath);
+
+            return true;
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
     }
 }
