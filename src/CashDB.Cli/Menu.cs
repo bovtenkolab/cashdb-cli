@@ -30,6 +30,7 @@ internal static class Menu
                     Console.Clear();                    
                     import.HandleImport(space);
                     Pause();
+
                     break;
 
                 case "3":
@@ -50,8 +51,8 @@ internal static class Menu
                         Console.WriteLine("Something went wrong.");
                     }
 
-                    Pause();
-                    
+                    Pause();    
+
                     break;
 
                 case "4":
@@ -63,10 +64,12 @@ internal static class Menu
                     try
                     {
                         save.Records = space.Transactions;
-                        save.TargetPath = Directory.GetCurrentDirectory() + "/test/store.json";
+                        save.TargetPath = space.StoreFilePath;
 
                         if (!save.Save())
                             throw new Exception();
+
+                        Console.WriteLine("Records saved.");
                     }      
                     catch (Exception e)
                     {
@@ -74,14 +77,15 @@ internal static class Menu
                     }
 
                     Pause();
+
                     break;
 
                 case "0":
                     return;
 
-                default:                    
-
+                default:      
                     Pause();
+
                     break;
             }
         }
