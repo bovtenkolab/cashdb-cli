@@ -13,5 +13,5 @@ Console.ReadKey(true);
 
 var space = new UserSpace();
 
-Menu.ShowMenu(space);
+await Menu.ShowMenu(space);
 
