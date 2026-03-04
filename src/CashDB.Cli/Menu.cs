@@ -124,6 +124,10 @@ internal static class Menu
         Console.WriteLine("3. Set Inbox Directory");
         Console.WriteLine("4. Save Transactions");
         Console.WriteLine("5. Chat Support");
+        Console.WriteLine("6. Reports");
+        Console.WriteLine("7. Categories");
+        Console.WriteLine("8. Accounts");
+        Console.WriteLine("9. Export");
         Console.WriteLine("0. Exit");
         Console.WriteLine();
 
